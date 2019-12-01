@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
-import logo from './logo.svg';
+import SpotifyForm from './SpotifyForm.js'
+import logo from './logo.png';
 import './App.css';
 
 const spotifyApi = new SpotifyWebApi();
@@ -8,7 +9,6 @@ const spotifyApi = new SpotifyWebApi();
 class App extends Component {
   constructor(){
     super();
-    this.generateRecommendations = this.generateRecommendations.bind(this);
     const params = this.getHashParams();
     const token = params.access_token;
     if (token) {
@@ -16,10 +16,9 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      searchQuery: ''
     }
-    console.log(this.state.loggedIn);
-    console.log(token);
+
+    this.generateRecs = this.generateRecs.bind(this);
   }
 
   getHashParams() {
@@ -34,8 +33,8 @@ class App extends Component {
     return hashParams;
   }
 
-  generateRecommendations(){
-    spotifyApi.searchArtists(this.state.searchQuery)
+  generateRecs(searchParams) {
+    spotifyApi.searchArtists(searchParams)
     .then(function(data) {
       return data.artists.items[0].id;
     }).then(function(id) {
@@ -50,15 +49,10 @@ class App extends Component {
       <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <a href='http://localhost:8888' > Find an artist </a>
+        <a href='http://localhost:8888' > Login to Spotify </a>
 
         { this.state.loggedIn &&
-        <form onSubmit={ this.generateRecommendations }>
-          <input value={ this.state.searchQuery } onChange={ e => this.setState({searchQuery: e.target.value}) }/>
-          <button type='submit'>
-            Get Rec
-          </button>
-        </form>
+        <SpotifyForm generateRecs={this.generateRecs}/>
       }
       </header>
     </div>
