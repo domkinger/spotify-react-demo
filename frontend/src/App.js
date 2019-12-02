@@ -33,15 +33,15 @@ class App extends Component {
     return hashParams;
   }
 
-  getArtistId(searchParam) {
-    spotifyApi.searchArtists(searchParam)
+  getArtistId(artistName) {
+    return spotifyApi.searchArtists(artistName)
     .then(function(data) {
       return data.artists.items[0].id;
-    })
+    });
   }
 
-  generateRecs() {
-    spotifyApi.getRecommendations({"seed_artists": ["4NHQUGzhtTLFvgF5SZesLK"]}).then(function(data) {
+  generateRecs(searchParams) {
+    spotifyApi.getRecommendations(searchParams).then(function(data) {
       console.log(data);
     })
   }
@@ -54,8 +54,10 @@ class App extends Component {
         <a href='http://localhost:8888' > Login to Spotify </a>
 
         { this.state.loggedIn &&
-        <SpotifyForm generateRecs={this.generateRecs}/>
-      }
+        <div className="Form" >
+          <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId}/>
+        </div>
+        }
       </header>
     </div>
     );

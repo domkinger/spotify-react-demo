@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import update from 'immutability-helper';
+import TextField from '@material-ui/core/TextField';
 
 class SpotifyForm extends Component {
     constructor(){
       super();
       this.state = {
-        searchQuery: ''
+        searchQuery: '',
+        searchParams: {seed_artists: []},
+        listItems: null
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,20 +19,25 @@ class SpotifyForm extends Component {
     }
 
     handleSubmit(event) {
-      this.props.generateRecs(this.state.searchQuery);
+      this.props.getArtistId(this.state.searchQuery).then(id => {
+        console.log(id);
+        this.setState({
+          searchParams: update(this.state.searchParams, {seed_artists: {$push: [id]}})
+        });
+        console.log(this.state.searchParams);
+        this.props.generateRecs(this.state.searchParams);
+      });
       event.preventDefault();
     }
   
     render() {
+
       return (
         <div className="SpotifyForm">
           <form onSubmit={this.handleSubmit}>
-            <input value={this.state.searchQuery} onChange={this.handleChange}/>
-            <button type='submit'>
-              Find Music
-            </button>
+            <TextField label="Enter an artist name" variant="outlined" value={this.state.searchQuery} onChange={this.handleChange}/>
           </form>
-      </div>
+        </div>
       );
     }
   }
