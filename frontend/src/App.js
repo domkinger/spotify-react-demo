@@ -33,15 +33,17 @@ class App extends Component {
     return hashParams;
   }
 
-  generateRecs(searchParams) {
-    spotifyApi.searchArtists(searchParams)
+  getArtistId(searchParam) {
+    spotifyApi.searchArtists(searchParam)
     .then(function(data) {
       return data.artists.items[0].id;
-    }).then(function(id) {
-      return spotifyApi.getArtistAlbums(id);
-    }).then(function (data) {
+    })
+  }
+
+  generateRecs() {
+    spotifyApi.getRecommendations({"seed_artists": ["4NHQUGzhtTLFvgF5SZesLK"]}).then(function(data) {
       console.log(data);
-    });
+    })
   }
 
   render() {

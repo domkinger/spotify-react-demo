@@ -15,7 +15,6 @@ class SpotifyForm extends Component {
     }
 
     handleSubmit(event) {
-      alert('A name was submitted: ' + this.state.searchQuery);
       this.props.generateRecs(this.state.searchQuery);
       event.preventDefault();
     }
