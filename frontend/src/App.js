@@ -61,23 +61,12 @@ class App extends Component {
 
   render() {
 
-    const classes = makeStyles(theme => ({
-      root: {
-        flexGrow: 1,
-      },
-      paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      },
-    }));
-
     return (
       <div className="App">
-        <div className={classes.root}>
-          <Grid container spacing={3}>
+        <div className='root'>
+          <Grid container spacing={0}>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper className='paper'>
                 <header className="App-header">
                   <img src={logo} className="App-logo" alt="logo" />
                   {
@@ -94,7 +83,7 @@ class App extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper className='paper'>
                 <List>
                   {this.state.tracks.map(rec => <div>{rec.artists[0].name} - {rec.name}</div>)}
                 </List>
