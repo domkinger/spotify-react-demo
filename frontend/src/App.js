@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyForm from './SpotifyForm.js'
+import TrackCard from './TrackCard.js';
 import logo from './logo.png';
 import './App.css';
 
@@ -85,8 +86,9 @@ class App extends Component {
             <Grid item xs={12} sm={6}>
               <Paper className='paper'>
                 <List>
-                  {this.state.tracks.map(rec => <div>{rec.artists[0].name} - {rec.name}</div>)}
+                  {this.state.tracks.map(track => <TrackCard track={track}/>)}
                 </List>
+                
               </Paper>
             </Grid>
           </Grid>
