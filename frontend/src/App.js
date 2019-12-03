@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Button from '@material-ui/core/Button';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyForm from './SpotifyForm.js'
 import logo from './logo.png';
@@ -51,9 +52,12 @@ class App extends Component {
       <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <a href='http://localhost:8888' > Login to Spotify </a>
-
-        { this.state.loggedIn &&
+        {
+        !this.state.loggedIn &&
+        <Button variant="contained" href='http://localhost:8888'>Login to Spotify</Button>
+        }
+        { 
+        this.state.loggedIn &&
         <div className="Form" >
           <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId}/>
         </div>
