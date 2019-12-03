@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyForm from './SpotifyForm.js'
 import logo from './logo.png';
@@ -57,24 +60,48 @@ class App extends Component {
   }
 
   render() {
+
+    const classes = makeStyles(theme => ({
+      root: {
+        flexGrow: 1,
+      },
+      paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      },
+    }));
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {
-            !this.state.loggedIn &&
-            <Button variant="contained" href='http://localhost:8888'>Login to Spotify</Button>
-          }
-          {
-            this.state.loggedIn &&
-            <div className="Form" >
-              <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId} clearRecs={this.clearRecs}/>
-            </div>
-          }
-        </header>
-        <List>
-          {this.state.tracks.map(rec => <div>{rec.artists[0].name} - {rec.name}</div>)}
-        </List>
+        <div className={classes.root}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.paper}>
+                <header className="App-header">
+                  <img src={logo} className="App-logo" alt="logo" />
+                  {
+                    !this.state.loggedIn &&
+                    <Button variant="contained" href='http://localhost:8888'>Login to Spotify</Button>
+                  }
+                  {
+                    this.state.loggedIn &&
+                    <div className="Form" >
+                      <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId} clearRecs={this.clearRecs} />
+                    </div>
+                  }
+                </header>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.paper}>
+                <List>
+                  {this.state.tracks.map(rec => <div>{rec.artists[0].name} - {rec.name}</div>)}
+                </List>
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     );
   }

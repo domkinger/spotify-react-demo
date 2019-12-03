@@ -5,7 +5,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function ArgumentListItem(props) {
