@@ -17,6 +17,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
+      recs: {}
     }
 
     this.generateRecs = this.generateRecs.bind(this);
@@ -43,8 +44,8 @@ class App extends Component {
 
   generateRecs(searchParams) {
     spotifyApi.getRecommendations(searchParams).then(function(data) {
-      console.log(data);
-    })
+      this.setState({recs: data});
+    }.bind(this));
   }
 
   render() {
