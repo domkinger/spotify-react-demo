@@ -48,6 +48,9 @@ class SpotifyForm extends Component {
       if(this.state.artists.length > 0) {
         this.props.generateRecs(this.state.searchParams);
       }
+      else {
+        this.props.clearRecs();
+      }
     })
   }
 
