@@ -24,7 +24,7 @@ export default function ArgumentList(props) {
         <div className={classes.root}>
             <div className={classes.demo}>
                 <List>
-                {props.artists.map(artist => <ArgumentListItem value={artist} type="Artist" key={Math.random()}/>)}
+                {props.artists.map(artist => <ArgumentListItem artist={artist} key={artist.id} remove={props.removeParamById}/>)}
                 </List>
             </div>
         </div>

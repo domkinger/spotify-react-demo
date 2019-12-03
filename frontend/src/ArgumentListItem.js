@@ -9,21 +9,23 @@ import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function ArgumentListItem(props) {
+  function handleClick(e) {
+    props.remove(props.artist);
+    e.preventDefault();
+  }
 
   return (
     <div>
       <ListItem>
         <ListItemAvatar>
-          <Avatar>
-            <LibraryMusicIcon />
-          </Avatar>
+          <Avatar src={props.artist.images[2].url}/>
         </ListItemAvatar>
         <ListItemText
-          primary={props.value}
-          secondary={props.type}
+          primary={props.artist.name}
+          secondary={props.artist.genres[0]}
         />
         <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="delete">
+          <IconButton edge="end" aria-label="delete" onClick={handleClick}>
             <DeleteIcon />
           </IconButton>
         </ListItemSecondaryAction>

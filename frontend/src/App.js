@@ -37,7 +37,7 @@ class App extends Component {
   getArtistId(artistName) {
     return spotifyApi.searchArtists(artistName)
     .then(function(data) {
-      return data.artists.items[0].id;
+      return data.artists.items[0];
     });
   }
 
