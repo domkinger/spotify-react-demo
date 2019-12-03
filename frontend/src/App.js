@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
@@ -50,7 +49,7 @@ class App extends Component {
 
   generateRecs(searchParams) {
     spotifyApi.getRecommendations(searchParams).then(function (data) {
-      this.setState({ tracks: data.tracks }, console.log(this.state.tracks));
+      this.setState({ tracks: data.tracks });
     }.bind(this));
   }
 
