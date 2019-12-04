@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import ArgumentList from './ArgumentList.js'
 
@@ -18,13 +19,14 @@ class SpotifyForm extends Component {
 
   handleChange(event) {
     this.setState({ searchQuery: event.target.value });
+    this.props.search(event.target.value);
   }
 
   handleSubmit(event) {
     this.props.getArtistId(this.state.searchQuery).then(artist => {
 
       if (artist == null) {
-        this.setState({searchQuery: ''});
+        this.setState({ searchQuery: '' });
         return;
       }
 
@@ -36,7 +38,7 @@ class SpotifyForm extends Component {
           artists: update(this.state.artists, { $push: [artist] })
         });
       }
-      this.setState({searchQuery: ''});
+      this.setState({ searchQuery: '' });
       this.props.generateRecs(this.state.searchParams);
     });
     event.preventDefault();
@@ -49,8 +51,8 @@ class SpotifyForm extends Component {
     })
     this.setState({
       searchParams: update(this.state.searchParams, { seed_artists: { $splice: [[index, 1]] } })
-    }, function() {
-      if(this.state.artists.length > 0) {
+    }, function () {
+      if (this.state.artists.length > 0) {
         this.props.generateRecs(this.state.searchParams);
       }
       else {
@@ -64,9 +66,17 @@ class SpotifyForm extends Component {
     return (
       <div className="SpotifyForm">
         <form onSubmit={this.handleSubmit}>
-          <TextField label="Enter an artist name" variant="outlined" value={this.state.searchQuery} onChange={this.handleChange} />
+          <Autocomplete
+            id="combo-box-demo"
+            options={this.props.searchResults}
+            getOptionLabel={option => option.name}
+            style={{ width: 300 }}
+            renderInput={params => (
+              <TextField {...params} label="Search" variant="outlined" fullWidth value={this.state.searchQuery} onChange={this.handleChange} />
+            )}
+          />
         </form>
-        <ArgumentList artists={this.state.artists} removeParamById={this.removeParamById}/>
+        <ArgumentList artists={this.state.artists} removeParamById={this.removeParamById} />
       </div>
     );
   }

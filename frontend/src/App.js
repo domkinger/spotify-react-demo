@@ -21,11 +21,13 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      tracks: []
+      tracks: [],
+      searchResults: []
     }
 
     this.generateRecs = this.generateRecs.bind(this);
     this.clearRecs = this.clearRecs.bind(this);
+    this.searchArtists = this.searchArtists.bind(this);
   }
 
   getHashParams() {
@@ -47,6 +49,16 @@ class App extends Component {
       }).catch((err) => {
         return null;
       });
+  }
+
+  searchArtists(searchTerm) {
+    return spotifyApi.searchArtists(searchTerm)
+    .then(function (data) {
+      console.log(data.artists.items);
+      this.setState({searchResults: data.artists.items});
+    }.bind(this)).catch(function (err) {
+      this.setState({searchResults: []});
+    }.bind(this));
   }
 
   generateRecs(searchParams) {
@@ -78,7 +90,7 @@ class App extends Component {
                   {
                     this.state.loggedIn &&
                     <div className="Form" >
-                      <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId} clearRecs={this.clearRecs} />
+                      <SpotifyForm generateRecs={this.generateRecs} getArtistId={this.getArtistId} clearRecs={this.clearRecs} searchResults={this.state.searchResults} search={this.searchArtists}/>
                     </div>
                   }
                 </header>
