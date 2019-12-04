@@ -44,6 +44,8 @@ class App extends Component {
     return spotifyApi.searchArtists(artistName)
       .then(function (data) {
         return data.artists.items[0];
+      }).catch((err) => {
+        return null;
       });
   }
 
@@ -85,7 +87,7 @@ class App extends Component {
             <Grid item xs={8} sm={6}>
               <Paper className='paper'>
                 <List>
-                  {this.state.tracks.map(track => <TrackCard track={track}/>)}
+                  {this.state.tracks.map(track => <TrackCard track={track} key={Math.random()}/>)}
                 </List>
                 
               </Paper>

@@ -23,6 +23,10 @@ class SpotifyForm extends Component {
   handleSubmit(event) {
     this.props.getArtistId(this.state.searchQuery).then(artist => {
 
+      if (artist == null) {
+        return;
+      }
+
       if (this.state.artists.length < 5 && !this.state.searchParams.seed_artists.includes(artist.id)) {
         this.setState({
           searchParams: update(this.state.searchParams, { seed_artists: { $push: [artist.id] } })
