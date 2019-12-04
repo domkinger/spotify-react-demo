@@ -24,6 +24,7 @@ class SpotifyForm extends Component {
     this.props.getArtistId(this.state.searchQuery).then(artist => {
 
       if (artist == null) {
+        this.setState({searchQuery: ''});
         return;
       }
 
