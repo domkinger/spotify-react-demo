@@ -64,8 +64,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className='root'>
-          <Grid container spacing={0}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={0} justify="center" alignItems="center">
+            <Grid item xs={8} sm={4}>
               <Paper className='paper'>
                 <header className="App-header">
                   <img src={logo} className="App-logo" alt="logo" />
@@ -82,7 +82,7 @@ class App extends Component {
                 </header>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={8} sm={6}>
               <Paper className='paper'>
                 <List>
                   {this.state.tracks.map(track => <TrackCard track={track}/>)}
