@@ -1,14 +1,14 @@
 # spotify-react-demo
 Generate song recommendations using the Spotify API and React!
 
-## Instruction to run
+## Setup
 * npm install in both the frontend and auth-server directories
-* create an app in the Spotify dev portal to retrieve your client secret and id
+* create an app in the Spotify dev portal to obtain your client secret and id
 * enter your client id and secret in lines 16 and 17 of auth-server/authorization_code/app.js
 * cd auth-server and run node authorization_code/app.js to start the auth server
 * cd frontend and run npm start to boot up the react app
 
-## Instructions for use
+## Usage Instructions
 * Hit the "Login to Spotify" button to authorize the app with your Spotify account
 * Type an artist name and hit enter to generate recommended tracks from the Spotify API
 * Enter up to 5 artists to generate recommendations based on their style
