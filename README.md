@@ -19,7 +19,7 @@ Generate song recommendations using the Spotify API and React!
 * ~~Error handling when artist name does not exist (app currently breaks)~~
 * Refine UI/UX
 * Add genre and song inputs
-* Live search when typing in the input box
+* ~~Live search when typing in the input box~~
 * Create Spotify playlist from recommendations
 * Cleanup auth server code
 * Cleanup frontend code
