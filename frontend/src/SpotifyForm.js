@@ -8,7 +8,7 @@ class SpotifyForm extends Component {
   constructor() {
     super();
     this.state = {
-      searchQuery: '',
+      searchQuery: null,
       searchParams: { seed_artists: [] },
       artists: [],
     }
@@ -26,7 +26,7 @@ class SpotifyForm extends Component {
     this.props.getArtistId(this.state.searchQuery).then(artist => {
 
       if (artist == null) {
-        this.setState({ searchQuery: '' });
+        this.setState({ searchQuery: null });
         return;
       }
 
@@ -38,7 +38,7 @@ class SpotifyForm extends Component {
           artists: update(this.state.artists, { $push: [artist] })
         });
       }
-      this.setState({ searchQuery: '' });
+      this.setState({ searchQuery: null });
       this.props.generateRecs(this.state.searchParams);
     });
     event.preventDefault();
@@ -68,11 +68,13 @@ class SpotifyForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <Autocomplete
             id="combo-box-demo"
+            inputValue={this.state.searchQuery}
+            onInputChange={this.handleChange} 
             options={this.props.searchResults}
             getOptionLabel={option => option.name}
             style={{ width: 300 }}
             renderInput={params => (
-              <TextField {...params} label="Search" variant="outlined" fullWidth value={this.state.searchQuery} onChange={this.handleChange} />
+              <TextField {...params} label="Search" variant="outlined" fullWidth/>
             )}
           />
         </form>
